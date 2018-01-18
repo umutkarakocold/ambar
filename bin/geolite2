@@ -1,0 +1,10 @@
+#!/bin/bash
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+cd "$parent_path/../data"
+
+curl -O -s -f http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
+
+if [ -f "GeoLite2-City.mmdb.gz" ]; then 
+    gunzip -f GeoLite2-City.mmdb.gz
+fi
