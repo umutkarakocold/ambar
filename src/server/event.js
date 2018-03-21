@@ -33,6 +33,7 @@ module.exports = class Event {
   applyFilters() {
     this.extractTechnology();
     this.extractLocation();
+    this.convertTime();
   }
 
   extractTechnology() {
@@ -49,5 +50,13 @@ module.exports = class Event {
     if (ip) {
       this.props._location = locationFinder(ip);
     }
+  }
+
+  convertTime() {
+    Object.keys(this.props).forEach(key => {
+      if (key.startsWith('time_')) {
+        this.props[key] = new Date(Number(this.props[key]));
+      }
+    });
   }
 };

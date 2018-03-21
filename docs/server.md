@@ -17,6 +17,8 @@ Ambar'a sadece doğrulanmış kaynaklar üzerinden veri gönderilebilir. Gönder
 
 Gönderilen bilgiler değerlendirilerek, veri kaydedilmeden önce zenginleştirilir. Örneğin `User-Agent` ile kullanıcının kullandığı işletim sistemi, cihaz gibi bilgiler tespit edilerek veriye eklenir.
 
+`time_` öneki ile gönderilen alanlar otomatik olarak tarih formatına dönüştürülür. Bu alanların değerleri milisaniye formatında (Ör: [Date.now()](https://mzl.la/1MOTt3N)) olmalıdır.
+
 ## Kaydetme
 
 Veri Datastore'a yazılırken üst bilgi olarak alınan ya da zenginleştirme ile oluşan bilgiler için önek olarak `_` kullanılır. Örneğin `User-Agent` üzerinden oluşturulan bilgi `_technology` alanı olarak kaydedilir.
