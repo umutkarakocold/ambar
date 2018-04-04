@@ -7,7 +7,6 @@ server.disable('x-powered-by');
 server.enable('trust proxy');
 server.use(express.static(`${__dirname}/../../public`));
 server.use(require('cors')());
-server.use(require('body-parser').json());
 server.use(require('./middlewares/log'));
 server.use(require('./routes'));
 server.use((err, req, res, next) => {

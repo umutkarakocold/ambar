@@ -21,20 +21,20 @@ export default {
       throw new Error('First set appId by calling init() function');
     }
 
-    fetch(API_URL + '/events', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Ambar-App-ID': APP_ID,
-        'X-Ambar-User-ID': USER_ID,
-        'X-Ambar-Device-ID': DEVICE_ID,
-        'X-Ambar-Session-ID': SESSION_ID,
-        'X-Ambar-Timestamp': Date.now()
-      },
-      body: JSON.stringify({ name, props })
-    }).catch(err => {
-      console.error('Failed to submit data', err);
-    });
+    navigator.sendBeacon(
+      API_URL + '/beacon',
+      JSON.stringify({
+        name,
+        props,
+        meta: {
+          'app-id': APP_ID,
+          'user-id': USER_ID,
+          'device-id': DEVICE_ID,
+          'session-id': SESSION_ID,
+          timestamp: Date.now()
+        }
+      })
+    );
   }
 };
 

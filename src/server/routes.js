@@ -1,9 +1,24 @@
 const { Router } = require('express');
+const bodyParser = require('body-parser');
 const Event = require('./event');
 const auth = require('./middlewares/auth');
 const router = Router();
 
-router.post('/events', auth, async (req, res) => {
+router.post('/beacon', bodyParser.text(), (req, res) => {
+  const body = JSON.parse(req.body);
+
+  Object.keys(body.meta).map(k => {
+    req.headers[`x-ambar-${k.toLowerCase()}`] = body.meta[k];
+  });
+
+  req.headers['content-type'] = 'application/json';
+  req.url = '/events';
+  req.body = body;
+
+  router.handle(req, res);
+});
+
+router.post('/events', auth, bodyParser.json(), async (req, res) => {
   const {
     headers: {
       'x-ambar-ip': ip = req.ip,
